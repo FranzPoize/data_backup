@@ -1,0 +1,20 @@
+<odoo>
+    {% for rec in records %}
+    <record model="{{model.model_id.model}}" id="{{model.model_id.model}}_{{rec.id}}">
+    {% for field in model.field_ids %}
+    {% if field.should_backup %}
+        {% if field.field_id.ttype == "many2one" %}
+            <field name="{{field.field_id.name}}" ref="{{field.field_id.relation}}_{{rec[field.field_id.name].id}}"></field>
+        {% elif field.field_id.ttype == "many2many"
+        or field.field_id.ttype == "one2many" %}
+            {% for item in rec[field.field_id.name] %}
+            <field name="{{field.field_id.name}}" ref="{{field.field_id.relation}}_{{item.id}}"></field>
+            {% endfor %}
+        {% else %}
+            <field name="{{field.field_id.name}}">{{rec[field.field_id.name]}}</field>
+        {% endif %}
+    {% endif %}
+    {% endfor %}
+    </record>
+    {% endfor %}
+</odoo>

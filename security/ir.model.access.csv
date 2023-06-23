@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+data_backup.access_data_backup_list,access_data_backup_list,data_backup.model_data_backup_list,base.group_user,1,1,1,1
+data_backup.access_data_backup_field,access_data_backup_field,data_backup.model_data_backup_field,base.group_user,1,1,1,1
+data_backup.access_data_backup_model,access_data_backup_model,data_backup.model_data_backup_model,base.group_user,1,1,1,1

@@ -1,0 +1,113 @@
+<odoo>
+    <menuitem name="Data backup"
+        id="menu_data_backup_root"
+        sequence="135"
+        groups="base.group_user"/>
+
+    <!-- <record id="data_backup_form_view" model="ir.ui.view"> -->
+    <!--     <field name="model">ir.model</field> -->
+    <!--     <field name="arch" type="xml"> -->
+    <!--         <form string="Model info"> -->
+    <!--             <sheet> -->
+    <!--                 <group> -->
+    <!--                     <group> -->
+    <!--                         <field name="id" invisible="1"/> -->
+    <!--                         <field name="name"/> -->
+    <!--                         <field name="model" attrs="{'readonly': [('id', '!=', False)]}"/> -->
+    <!--                         <field name="order"/> -->
+    <!--                         <field name="transient" attrs="{'readonly': [('id', '!=', False)]}" groups="base.group_no_one"/> -->
+    <!--                     </group> -->
+    <!--                     <group> -->
+    <!--                         <field name="state" readonly="1" groups="base.group_no_one"/> -->
+    <!--                         <field name="modules" groups="base.group_no_one"/> -->
+    <!--                     </group> -->
+    <!--                 </group> -->
+    <!--                 <notebook> -->
+    <!--                     <page string="Fields" name="fields"> -->
+    <!--                         <field name="field_id"> -->
+    <!--                             <tree string="Fields Description" editable="top"> -->
+    <!--                                 <field name="name"/> -->
+    <!--                                 <field name="field_description"/> -->
+    <!--                                 <field name="ttype"/> -->
+    <!--                                 <field name="required"/> -->
+    <!--                                 <field name="state" groups="base.group_no_one"/> -->
+    <!--                                 <field name="should_backup"/> -->
+    <!--                             </tree> -->
+    <!--                         </field> -->
+    <!--                     </page> -->
+    <!--                 </notebook> -->
+    <!--             </sheet> -->
+    <!--         </form> -->
+    <!--     </field> -->
+    <!-- </record> -->
+
+    <record id="data_backup_list_tree" model="ir.ui.view">
+        <field name="model">data.backup.list</field>
+        <field name="name">Data backup</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="model_id_count"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="data_backup_list_form" model="ir.ui.view">
+        <field name="model">data.backup.list</field>
+        <field name="name">Data backup</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="name"/>
+                <button name="add_all_backup_models" string="Add all models" type="object" class="oe_highlight"/>
+                <button name="remove_all_backup_models" string="Remove all models" type="object" class="oe_highlight"/>
+                <button name="get_data_for_backedup_model" string="Create data backup" type="object" class="oe_highlight"/>
+                <button name="delete_all_models" string="Delete all models" type="object" class="oe_highlight"/>
+                <field name="model_ids">
+                    <tree string="Models" editable="top"> -->
+                        <field name="model"/>
+                        <field name="name" />
+                        <field name="should_backup"/>
+                        <button string="open" name="open_record" type="object" class="oe_highlight"/>
+                    </tree>
+                </field>
+            </form>
+        </field>
+    </record>
+
+    <record id="data_backup_model_form" model="ir.ui.view">
+        <field name="model">data.backup.model</field>
+        <field name="name">Data backup model</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="field_ids">
+                    <tree string="Models" editable="top">
+                        <field name="name"/>
+                        <field name="field_description"/>
+                        <field name="ttype"/>
+                        <field name="required"/>
+                        <field name="state"/>
+                        <field name="should_backup"/>
+                    </tree>
+                </field>
+            </form>
+        </field>
+    </record>
+
+    <record id="data_backup_model_action_view" model="ir.actions.act_window">
+        <field name="name">Data backup</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">data.backup.list</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="data_backup_list_tree"/>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No models
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_data_backup_models" name="Models"
+        parent="menu_data_backup_root"
+        action="data_backup_model_action_view"/>
+</odoo>
